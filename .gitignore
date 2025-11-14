@@ -1,0 +1,89 @@
+########################################
+# Visual Studio / .NET / C#
+########################################
+
+# Build artifacts
+bin/
+obj/
+[Bb]uild/
+[Ll]ogs/
+MoveModPublic/bin/
+MoveModPublic/obj/
+
+# VS Cache
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Rider / IntelliJ / JetBrains
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# VSCode
+.vscode/
+.vscode/**
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+########################################
+# Unity
+########################################
+
+# Unity-generated files
+Library/
+Temp/
+Obj/
+Logs/
+MemoryCaptures/
+UserSettings/
+
+# Unity meta files cache
+*.pidb
+*.booproj
+*.user
+*.unityproj
+*.dll.mdb
+*.pdb.meta
+
+# Crash logs
+sysinfo.txt
+
+########################################
+# Mod / Project Specific
+########################################
+
+# Tokens, secrets
+token.env
+
+# Auto-generated weaver files
+FodyWeavers.xsd
+
+# Solution files (optional — remove if you want to keep them)
+*.sln
+
+# Additional user config
+.editorconfig
+
+########################################
+# OS / Editor Specific
+########################################
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Temp files
+*.tmp
+*.temp
+*.bak
+*.old
+*.orig
