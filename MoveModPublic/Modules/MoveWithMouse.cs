@@ -122,7 +122,7 @@ public class MoveWithMouse : MonoBehaviour
         foreach (Collider2D hitCollider in hitColliders)
         {
             PlayerControl playerControl = hitCollider.GetComponent<PlayerControl>();
-            if (playerControl != null && ((AmongUsClient.Instance.AmHost && !MVConstants.DisableModdedProtocol) || playerControl.AmOwner || TutorialManager.InstanceExists))
+            if (playerControl != null && ((AmongUsClient.Instance.AmHost && !MVConstants.DisableModdedProtocol) || TutorialManager.InstanceExists))
             {
                 if (playerControl.walkingToVent || playerControl.onLadder)
                 {
