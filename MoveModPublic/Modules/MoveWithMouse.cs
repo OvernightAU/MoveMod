@@ -78,7 +78,10 @@ public class MoveWithMouse : MonoBehaviour
 
                     case TouchPhase.Moved:
                     case TouchPhase.Stationary:
-                        this.touchPosition = touchPosition;
+                        if (touch.fingerId == activeTouchId)
+                        {
+                            this.touchPosition = touchPosition;
+                        }
                         break;
 
                     case TouchPhase.Ended:
