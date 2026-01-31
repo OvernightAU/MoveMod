@@ -32,10 +32,12 @@ MoveMod lets you **grab any player** and physically **drag them anywhere**:
    BepInEx/plugins/
    ```
 4. Start the game, the mod loads automatically.
+> ⚠ Important: All players in the lobby must have MoveMod installed.
 
 ## 🔒 Who Can Drag Players?
 
 To avoid trolling or abuse, dragging only works if:
 
 * You are the **host**, or
+* You **own** the player, or
 * You are in **Tutorial mode**
