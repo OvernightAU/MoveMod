@@ -97,8 +97,29 @@ public static class StoreOutOfBoundsCollider
         {
             EdgeOutOfBoundsCollider = EdgeCollider;
             OutOfBoundsCollider = EdgeCollider.gameObject.AddComponent<PolygonCollider2D>();
-            OutOfBoundsCollider.points = EdgeCollider.points;
+
+            Vector2[] originalPoints = EdgeCollider.points;
+            Vector2 center = GetCentroid(originalPoints);
+            Vector2[] shrunkPoints = new Vector2[originalPoints.Length];
+
+            for (int i = 0; i < originalPoints.Length; i++)
+            {
+                Vector2 direction = originalPoints[i] - center;
+                shrunkPoints[i] = center + direction * 0.92f; 
+            }
+
+            OutOfBoundsCollider.points = shrunkPoints;
             OutOfBoundsCollider.isTrigger = true;
         }
+    }
+
+    private static Vector2 GetCentroid(Vector2[] points)
+    {
+        Vector2 sum = Vector2.zero;
+        foreach (Vector2 point in points)
+        {
+            sum += point;
+        }
+        return sum / points.Length;
     }
 }

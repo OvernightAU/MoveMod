@@ -159,22 +159,9 @@ public class MoveWithMouse : MonoBehaviour
     {
         if (ShipStatus.Instance && StoreOutOfBoundsCollider.OutOfBoundsCollider != null)
         {
-            PolygonCollider2D bounds = StoreOutOfBoundsCollider.OutOfBoundsCollider;
-            Vector2 start = selectedPlayer.transform.position;
-            Vector2 end = position;
-
-            if (!bounds.OverlapPoint(end))
+            if (!StoreOutOfBoundsCollider.OutOfBoundsCollider.OverlapPoint(position))
             {
-                for (int i = 0; i < 20; i++)
-                {
-                    Vector2 mid = (start + end) * 0.5f;
-                    if (bounds.OverlapPoint(mid))
-                        start = mid;
-                    else
-                        end = mid;
-                }
-
-                position = Vector2.Lerp(start, selectedPlayer.transform.position, 2.1f);
+                return;
             }
         }
 
@@ -192,5 +179,18 @@ public class MoveWithMouse : MonoBehaviour
             selectedPlayer.transform.position = position;
             selectedPlayer.NetTransform.body.velocity = Vector2.zero;
         }
+    }
+
+    bool IsPositionValid(PolygonCollider2D bounds, Vector2 center, float radius)
+    {
+        int samples = 8;
+        for (int i = 0; i < samples; i++)
+        {
+            float angle = (i / (float)samples) * Mathf.PI * 2f;
+            Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
+            if (!bounds.OverlapPoint(center + offset))
+                return false;
+        }
+        return true;
     }
 }
