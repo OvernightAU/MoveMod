@@ -26,11 +26,12 @@ MoveMod lets you **grab any player** and physically **drag them anywhere**:
 ## 📦 How to Install
 
 1. Install **BepInEx** in [BepInBuilds](https://builds.bepinex.dev/projects/bepinex_be).
-2. Place **MoveMod.dll** inside:
+2. Install [Reactor](https://github.com/NuclearPowered/Reactor).
+3. Place **MoveMod.dll** inside:
    ```
    BepInEx/plugins/
    ```
-3. Start the game — the mod loads automatically.
+4. Start the game, the mod loads automatically.
 
 ## 🔒 Who Can Drag Players?
 
