@@ -23,7 +23,7 @@ public class Zoom
             return;
         }
 
-        if (ShouldKeepZoom && AmongUsClient.Instance.AmHost)
+        if (ShouldKeepZoom)
         {
             if (Camera.main.orthographicSize > 3f)
                 ResetButtons = true;

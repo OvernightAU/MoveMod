@@ -1,6 +1,9 @@
 ﻿using Hazel;
 using MoveModPublic.Extensions;
+using MoveModPublic.Patches;
+using Reactor.Utilities;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace MoveModPublic.Modules;
 
@@ -122,7 +125,7 @@ public class MoveWithMouse : MonoBehaviour
         foreach (Collider2D hitCollider in hitColliders)
         {
             PlayerControl playerControl = hitCollider.GetComponent<PlayerControl>();
-            if (playerControl != null && ((AmongUsClient.Instance.AmHost && !MVConstants.DisableModdedProtocol) || TutorialManager.InstanceExists))
+            if (playerControl != null && ((AmongUsClient.Instance.AmHost && !MVConstants.DisableModdedProtocol) || playerControl.AmOwner || TutorialManager.InstanceExists))
             {
                 if (playerControl.walkingToVent || playerControl.onLadder)
                 {
@@ -154,6 +157,27 @@ public class MoveWithMouse : MonoBehaviour
 
     void DragObject(bool networked, Vector2 position)
     {
+        if (ShipStatus.Instance && StoreOutOfBoundsCollider.OutOfBoundsCollider != null)
+        {
+            PolygonCollider2D bounds = StoreOutOfBoundsCollider.OutOfBoundsCollider;
+            Vector2 start = selectedPlayer.transform.position;
+            Vector2 end = position;
+
+            if (!bounds.OverlapPoint(end))
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    Vector2 mid = (start + end) * 0.5f;
+                    if (bounds.OverlapPoint(mid))
+                        start = mid;
+                    else
+                        end = mid;
+                }
+
+                position = Vector2.Lerp(start, selectedPlayer.transform.position, 2.1f);
+            }
+        }
+
         if (networked)
         {
             selectedPlayer.NetTransform.RpcTeleport(position);

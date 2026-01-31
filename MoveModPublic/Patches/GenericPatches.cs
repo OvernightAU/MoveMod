@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using MoveModPublic.Modules;
+using Reactor.Utilities;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -55,5 +56,49 @@ public static class CoEnterVentPatch
     public static void Prefix(PlayerPhysics __instance, [HarmonyArgument(0)] int id)
     {
         VentIdMap[__instance.myPlayer] = id;
+    }
+}
+[HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.Awake))]
+public static class StoreOutOfBoundsCollider
+{
+    public static PolygonCollider2D OutOfBoundsCollider = null;
+    public static EdgeCollider2D EdgeOutOfBoundsCollider = null;
+
+    public static void Postfix(ShipStatus __instance)
+    {
+        EdgeCollider2D EdgeCollider = null;
+
+        if (__instance.TryCast<SkeldShipStatus>())
+        {
+            EdgeCollider = __instance.transform.Find("starfield").GetComponent<EdgeCollider2D>();
+        }
+        else if (__instance.TryCast<MiraShipStatus>())
+        {
+            EdgeCollider = __instance.transform.Find("CloudGen").GetComponent<EdgeCollider2D>();
+        }
+        else if (__instance.TryCast<PolusShipStatus>())
+        {
+            EdgeCollider = __instance.transform.Find("OuterBoundary").GetComponent<EdgeCollider2D>();
+        }
+        else if (__instance.TryCast<AirshipStatus>())
+        {
+            EdgeCollider = __instance.transform.Find("Boundary").GetComponent<EdgeCollider2D>();
+        }
+        else if (__instance.TryCast<FungleShipStatus>())
+        {
+            EdgeCollider = __instance.transform.Find("GhostBoundary").GetComponent<EdgeCollider2D>();
+        }
+        else
+        {
+            Logger<MVPlugin>.Warning("Boundary Collider Not Found! Please patch ShipStatus.Awake and set MoveModPublic.Patches.StoreOutOfBoundsCollider.OutOfBoundsCollider manually.");
+        }
+
+        if (EdgeCollider != null)
+        {
+            EdgeOutOfBoundsCollider = EdgeCollider;
+            OutOfBoundsCollider = EdgeCollider.gameObject.AddComponent<PolygonCollider2D>();
+            OutOfBoundsCollider.points = EdgeCollider.points;
+            OutOfBoundsCollider.isTrigger = true;
+        }
     }
 }

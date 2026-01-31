@@ -5,6 +5,10 @@ using HarmonyLib;
 using Il2CppInterop.Runtime.Injection;
 using MoveModPublic.Modules;
 using MoveModPublic.Patches;
+using Reactor;
+using Reactor.Networking;
+using Reactor.Networking.Attributes;
+using Reactor.Utilities;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +17,8 @@ namespace MoveModPublic;
 
 [BepInAutoPlugin("com.pietro420.movemod")]
 [BepInProcess("Among Us.exe")]
+[BepInDependency(ReactorPlugin.Id)]
+[ReactorModFlags(ModFlags.RequireOnAllClients)]
 public partial class MVPlugin : BasePlugin
 {
     public Harmony Harmony { get; } = new(Id);
@@ -37,6 +43,7 @@ public partial class MVPlugin : BasePlugin
         ModInstance = AddComponent<MoveWithMouse>();
         ClassInjector.RegisterTypeInIl2Cpp<MoveWithMouse>();
         Harmony.PatchAll();
+        ReactorCredits.Register("MoveMod", Version, true, ReactorCredits.AlwaysShow);
     }
 
     public static int GetRealVersion()
