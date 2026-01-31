@@ -1,43 +1,43 @@
 # MoveMod
 
-**Drag players with your mouse or finger in Among Us.**
-A lightweight, client-side mod that lets you pick up and move characters around the map.
+Drag players around the map with your mouse or finger.
 
-## ✨ What it Does
+## Features
 
-MoveMod lets you **grab any player** and physically **drag them anywhere**:
+- **Drag players** - Click and drag any character to move them around
+- **Camera zoom** - Adjust your view to see more or less of the map
+- **Cross-platform** - Works on PC and mobile
 
-* Smooth dragging on your own screen
-* Synced movement when you’re the host
-* Works on both **PC** and **mobile**
+## Controls
 
-## 🖱️ How to Use (PC)
+### PC
+- **Right-click and hold** on a player to grab them
+- **Mouse wheel** to zoom in/out
 
-* Hold **right-click** on a player to grab them
-* Move your mouse to drag
-* Release to drop
+### Mobile
+- **Touch and hold** a player to drag them
+- **Three-finger pinch** to zoom
 
-## 📱 How to Use (Mobile)
+## Zoom Settings
 
-* Touch and hold a player with **one finger**
-* Drag them around normally
-* The mod automatically handles multi-touch to avoid glitches
+- Default zoom: 3x
+- Max zoom: 18x
+- Zoom resets after meetings and won't work during meetings or while stunned
 
-## 📦 How to Install
+## Installation
 
-1. Install **BepInEx** in [BepInBuilds](https://builds.bepinex.dev/projects/bepinex_be).
-2. Install [Reactor](https://github.com/NuclearPowered/Reactor).
-3. Place **MoveMod.dll** inside:
-   ```
-   BepInEx/plugins/
-   ```
-4. Start the game, the mod loads automatically.
-> ⚠ Important: All players in the lobby must have MoveMod installed.
+1. Install [BepInEx](https://builds.bepinex.dev/projects/bepinex_be)
+2. Install [Reactor](https://github.com/NuclearPowered/Reactor)
+3. Drop `MoveMod.dll` into `BepInEx/plugins/`
+4. Launch the game
 
-## 🔒 Who Can Drag Players?
+**Note:** All players in the lobby need MoveMod installed.
 
-To avoid trolling or abuse, dragging only works if:
+## Permissions
 
-* You are the **host**, or
-* You **own** the player, or
-* You are in **Tutorial mode**
+You can only drag players if you're:
+- The host
+- The player's owner
+- In tutorial mode
+
+This prevents trolling in public lobbies.
