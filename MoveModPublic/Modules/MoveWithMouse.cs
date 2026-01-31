@@ -180,17 +180,4 @@ public class MoveWithMouse : MonoBehaviour
             selectedPlayer.NetTransform.body.velocity = Vector2.zero;
         }
     }
-
-    bool IsPositionValid(PolygonCollider2D bounds, Vector2 center, float radius)
-    {
-        int samples = 8;
-        for (int i = 0; i < samples; i++)
-        {
-            float angle = (i / (float)samples) * Mathf.PI * 2f;
-            Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
-            if (!bounds.OverlapPoint(center + offset))
-                return false;
-        }
-        return true;
-    }
 }
