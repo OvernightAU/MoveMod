@@ -37,5 +37,4 @@ MoveMod lets you **grab any player** and physically **drag them anywhere**:
 To avoid trolling or abuse, dragging only works if:
 
 * You are the **host**, or
-* You **own** the player (local control), or
 * You are in **Tutorial mode**
