@@ -32,7 +32,7 @@ public class MoveWithMouse : MonoBehaviour
             HandleMouseDrag();
         }
 
-        if (isDragging && selectedPlayer != null)
+        if (isDragging && selectedPlayer != null && PlayerControl.LocalPlayer.CanMove)
         {
             DragObject(false, touchPosition);
         }
@@ -40,7 +40,7 @@ public class MoveWithMouse : MonoBehaviour
 
     private void HandleMouseDrag()
     {
-        isDragging = Input.GetMouseButton(1) && PlayerControl.LocalPlayer.CanMove;
+        isDragging = Input.GetMouseButton(1);
         touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(1))
@@ -64,21 +64,28 @@ public class MoveWithMouse : MonoBehaviour
         {
             foreach (Touch touch in Input.touches)
             {
-                touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
 
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
                         if (activeTouchId == -1)
                         {
+                            isDragging = true;
                             StartDragging(touchPosition, touch.fingerId);
                         }
+                        break;
+
+                    case TouchPhase.Moved:
+                    case TouchPhase.Stationary:
+                        this.touchPosition = touchPosition;
                         break;
 
                     case TouchPhase.Ended:
                     case TouchPhase.Canceled:
                         if (touch.fingerId == activeTouchId)
                         {
+                            isDragging = false;
                             StopDragging();
                         }
                         break;
@@ -94,7 +101,7 @@ public class MoveWithMouse : MonoBehaviour
         if (fixedUpdateCounter >= fixedUpdateSkipRate)
         {
             fixedUpdateCounter = 0;
-            if (isDragging && selectedPlayer != null)
+            if (isDragging && selectedPlayer != null && PlayerControl.LocalPlayer.CanMove)
             {
                 DragObject(true, touchPosition);
             }
